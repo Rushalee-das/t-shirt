@@ -95,3 +95,14 @@ input[type="file"] {
   display: flex;
   margin-left: 0;
 }
+.home-logo{
+  width: 150px;
+  margin: 0;
+}
+.canvas-container {
+  position: relative;
+  width: 100%; /* Take the full width of the parent */
+  height: 0; /* Initial height set to 0 */
+  padding-bottom: 56.25%; /* 16:9 aspect ratio (9 / 16 = 0.5625) */
+  overflow: hidden;
+}

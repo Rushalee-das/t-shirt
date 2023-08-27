@@ -27,7 +27,7 @@ const AIPicker = ({ prompt, setPrompt, generatingImg, handleSubmit, setGeneratin
         onChange={(e) => setPrompt(e.target.value)}
         className="aipicker-textarea"
       />
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap gap-3 test-black-500">
         {generatingImg ? (
           <CustomButton
             type="outline"

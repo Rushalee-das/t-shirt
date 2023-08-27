@@ -8,7 +8,7 @@ import CameraRig from './CameraRig'
 
 const CanvasModel = () => {
   return (
-    <div style={{ width: '100%', height: '803.75px' }}>
+    <div className='object-cover md:h-screen md:w-full overflow-hidden'>
     <Canvas
         shadows
         camera={{position: [0,0,0], fov: 25}}
@@ -24,6 +24,7 @@ const CanvasModel = () => {
         </Center>
       </CameraRig>
     </Canvas>
+
     </div>
   )
 }

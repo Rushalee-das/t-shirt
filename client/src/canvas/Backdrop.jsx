@@ -14,18 +14,18 @@ const Backdrop = () => {
       alphaTest={0.85}
       scale={10}
       rotation={[Math.PI /2, 0, 0]}
-      position={[0,0,-0.15]}>
+      position={[0,1,-0.05]}>
       <RandomizedLight 
         amount={4}
         radius={9}
-        intensity={0.85}
+        intensity={1}
         ambient={0.5}
         position={[5,5,-10]}
         />
          <RandomizedLight 
         amount={4}
         radius={11}
-        intensity={0.95}
+        intensity={1.2}
         ambient={0.5}
         position={[-5,5,-10]}
         />

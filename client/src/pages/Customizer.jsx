@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { AnimatePresence , motion} from 'framer-motion';
 import { useSnapshot } from 'valtio';
-import { useTexture } from '@react-three/drei';
+import * as THREE from "three";
 
 import config from '../config/config';
 import state  from '../store';
-import {download } from '../assets';
 import {downloadCanvasToImage, reader} from '../config/helpers';
 import {EditorTabs, FilterTabs, DecalTypes} from '../config/constants';
 import { fadeAnimation, slideAnimation } from '../config/motion';
@@ -84,44 +83,18 @@ const Customizer = () => {
       setGeneratingImg(false);
     }
   };
-  
-  
-  // const handleSubmit = async () => {
-  //   const promptData = {
-  //     prompt: "Your prompt here",
-  //   };
-  
-  //   try {
-  //     const response = await fetch('http://localhost:5000/openai/generateimage', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(promptData),
-  //     });
-  
-  //     if (!response.ok) {
-  //       throw new Error('Error generating image');
-  //     }
-  
-  //     const data = await response.json();
-  //     console.log('Generated image URL:', data.data);
-  //   } catch (error) {
-  //     console.error('Error:', error);
-  //     // Handle the error
-  //   }
-  // };
-  
-  
+
 
   const handleDecals = (type, result) => {
     const decalType = DecalTypes[type];
-    state[decalType.stateProperty] = result
-
+    state[decalType.stateProperty] = result;
+  
     if (!activeFilterTab[decalType.filterTab]) {
-      handleActiveFilterTab(decalType.filterTab)
+      handleActiveFilterTab(decalType.filterTab);
     }
-  }
+  };
+  
+  
 
   const handleActiveFilterTab = (tabName) => {
     switch(tabName) {
@@ -131,6 +104,9 @@ const Customizer = () => {
       case "stylishShirt":
         state.isFullTexture = !activeFilterTab[tabName]
         break;
+        case "download":
+          saveImage();
+          break;
       default:
         state.isLogoTexture = true;
         state.isFullTexture = false;
@@ -152,6 +128,20 @@ const Customizer = () => {
       setActiveEditorTab('')
     })
   }
+
+  // const renderer = new THREE.WebGLRenderer({alpha: true,preserveDrawingBuffer: true });
+
+  const saveImage= () => {
+    const canvas =  document.getElementsByTagName("canvas")[0]
+    const image = canvas.toDataURL("image/png");
+    const a = document.createElement("a");
+    a.href = image.replace(/^data:image\/[^;]/, 'data:application/octet-stream');
+    a.download="image.png"
+    a.click();
+  }
+
+
+  
 
   return (
     <AnimatePresence>
@@ -178,13 +168,14 @@ const Customizer = () => {
           </motion.div>
           <motion.div className='filtertabs-container' {...slideAnimation('up')}>
             {FilterTabs.map((tab) => (
-              <Tab 
-                key={tab.name}
-                tab={tab}
-                isFilterTab
-                isActiveTab={activeFilterTab[tab.name]}
-                handleClick={() => handleActiveFilterTab(tab.name)}
-              />
+              <div key={tab.name} className="filter-tab">
+                <Tab
+                  tab={tab}
+                  isFilterTab
+                  isActiveTab={activeFilterTab[tab.name]}
+                  handleClick={() => handleActiveFilterTab(tab.name)}
+                />
+              </div>
             ))}
           </motion.div>
         </>

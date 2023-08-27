@@ -59,7 +59,7 @@ const Customizer = () => {
   
     setGeneratingImg(true);
     try {
-      const response = await fetch('http://localhost:5000/openai/generateimage', {
+      const response = await fetch('https://outset.onrender.com/openai/generateimage', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

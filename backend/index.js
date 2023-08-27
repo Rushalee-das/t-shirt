@@ -13,7 +13,11 @@ app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 
 
-app.use('/openai', require('./routes/openAiRoutes'))
+app.get('/', (req, res) => {
+    res.status(200).json({ message: "Hello from DALL.E" })
+  })
+
+  app.use('/openai', require('./routes/openAiRoutes'))
 
 app.listen(port, () => 
     console.log('server is started at port 5000')
